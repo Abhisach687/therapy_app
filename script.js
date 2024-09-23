@@ -123,6 +123,7 @@ function loadExercises() {
             <li><button onclick="startSFTExercise()">Solution-Focused Therapy Exercise</button></li>
             <li><button onclick="startPositiveReframingExercise()">Positive Reframing Exercise</button></li>
             <li><button onclick="startSavoringExercise()">Savoring Moments Exercise</button></li>
+            <li><button onclick="startGratitudeExercise()">Gratitude Journaling Exercise</button></li>
         </ul>
         <div id="exerciseContent"></div>
     `;
@@ -517,6 +518,55 @@ function displaySavoringEntries() {
     });
 }
 
+// Gratitude Journaling Exercise
+function startGratitudeExercise() {
+    const exerciseContent = document.getElementById('exerciseContent');
+    exerciseContent.innerHTML = `
+        <h3>Gratitude Journaling Exercise</h3>
+        <form id="gratitudeForm">
+            <label for="gratitudeEntry">Write down three things you're grateful for today:</label>
+            <textarea id="gratitudeEntry" rows="4" required></textarea>
+            <button type="submit">Save Entry</button>
+        </form>
+        <div id="gratitudeEntries"></div>
+    `;
+    const gratitudeForm = document.getElementById('gratitudeForm');
+    gratitudeForm.addEventListener('submit', saveGratitudeExercise);
+    displayGratitudeEntries();
+}
+
+// Save Gratitude Exercise
+function saveGratitudeExercise(e) {
+    e.preventDefault();
+    const gratitudeEntry = document.getElementById('gratitudeEntry').value;
+    const date = new Date().toLocaleDateString();
+    let gratitudeExercises = JSON.parse(localStorage.getItem('gratitudeExercises')) || [];
+    gratitudeExercises.push({ date, gratitudeEntry });
+    localStorage.setItem('gratitudeExercises', JSON.stringify(gratitudeExercises));
+    alert('Gratitude entry saved!');
+    startGratitudeExercise();
+}
+
+// Display Gratitude Entries
+function displayGratitudeEntries() {
+    const gratitudeEntriesDiv = document.getElementById('gratitudeEntries');
+    let gratitudeExercises = JSON.parse(localStorage.getItem('gratitudeExercises')) || [];
+    if (gratitudeExercises.length === 0) {
+        gratitudeEntriesDiv.innerHTML = '<p>No gratitude entries saved yet.</p>';
+        return;
+    }
+    gratitudeEntriesDiv.innerHTML = '<h3>Your Gratitude Entries:</h3>';
+    gratitudeExercises.reverse().forEach(entry => {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'entry';
+        entryDiv.innerHTML = `
+            <p><strong>Date:</strong> ${entry.date}</p>
+            <p><strong>Gratitude Entry:</strong><br>${entry.gratitudeEntry.replace(/\n/g, '<br>')}</p>
+        `;
+        gratitudeEntriesDiv.appendChild(entryDiv);
+    });
+}
+
 // Load Progress
 function loadProgress() {
     mainContent.innerHTML = `
@@ -549,6 +599,7 @@ function displayProgress() {
     let sftExercises = JSON.parse(localStorage.getItem('sftExercises')) || [];
     let prExercises = JSON.parse(localStorage.getItem('prExercises')) || [];
     let savoringExercises = JSON.parse(localStorage.getItem('savoringExercises')) || [];
+    let gratitudeExercises = JSON.parse(localStorage.getItem('gratitudeExercises')) || [];
 
     progressContent.innerHTML += `
         <h3>Exercises Completed:</h3>
@@ -559,6 +610,7 @@ function displayProgress() {
         <p><strong>SFT Exercises:</strong> ${sftExercises.length}</p>
         <p><strong>Positive Reframing Exercises:</strong> ${prExercises.length}</p>
         <p><strong>Savoring Moments Exercises:</strong> ${savoringExercises.length}</p>
+        <p><strong>Gratitude Entries:</strong> ${gratitudeExercises.length}</p>
     `;
 }
 
