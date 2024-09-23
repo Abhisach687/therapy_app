@@ -1,0 +1,92 @@
+/* style.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+}
+
+header {
+  background-color: #6a5acd;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav {
+  background-color: #483d8b;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #7b68ee;
+}
+
+main {
+  padding: 20px;
+}
+
+footer {
+  background-color: #6a5acd;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+button {
+  background-color: #6a5acd;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #7b68ee;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+#entries,
+#exerciseContent,
+#progressContent {
+  margin-top: 20px;
+}
+
+.entry {
+  background-color: #e6e6fa;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin-top: 30px;
+}
